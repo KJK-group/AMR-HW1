@@ -19,10 +19,16 @@
 
 using namespace std;
 
-auto trajectory_slope = 0;
+float a = 0;
+
+auto trajectory_slope(float x) -> float {
+    // ax²  second order polynomial
+    // 2ax  slope of second order polynomial
+    return 2 * a * x;
+}
 
 auto main(int argc, char** argv) -> int {
-    ros::init(argc, argv, "first_order_trajectory_follower");
+    ros::init(argc, argv, "second_order_trajectory_follower");
 
     auto euler = quarternion_to_euler(4.1, 6.2, 7.4, 2.9);
     ROS_WARN("x: %.5f\ty: %.5f\tz: %.5f", get<0>(euler), get<1>(euler), get<2>(euler));
@@ -32,7 +38,7 @@ auto main(int argc, char** argv) -> int {
 
     auto loop_rate = ros::Rate(10);
 
-    trajectory_slope = stoi(argv[1]);
+    a = stof(argv[1]);
 
     auto odom_cb = [&](const nav_msgs::Odometry::ConstPtr& msg) {
         auto qx = msg->pose.pose.orientation.x;
@@ -46,7 +52,7 @@ auto main(int argc, char** argv) -> int {
         // Vehicle yaw
         auto theta = get<2>(quarternion_to_euler(qx, qy, qz, qw));
         // Desired heading
-        auto beta = atan(trajectory_slope);
+        auto beta = atan(trajectory_slope(curr_x));
         // Heading error
         auto alpha = beta - theta;
 

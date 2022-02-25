@@ -120,7 +120,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -139,6 +139,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(goto_target src/goto_target.cpp)
 add_executable(first_order_trajectory_follower src/first_order_trajectory_follower.cpp)
+add_executable(second_order_trajectory_follower src/second_order_trajectory_follower.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -155,6 +156,9 @@ target_link_libraries(goto_target
   ${catkin_LIBRARIES}
 )
 target_link_libraries(first_order_trajectory_follower
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(second_order_trajectory_follower
   ${catkin_LIBRARIES}
 )
 
