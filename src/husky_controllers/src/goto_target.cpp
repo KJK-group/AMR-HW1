@@ -62,7 +62,7 @@ auto main(int argc, char** argv) -> int {
     auto euler = quarternion_to_euler(4.1, 6.2, 7.4, 2.9);
     ROS_WARN("x: %.5f\ty: %.5f\tz: %.5f", get<0>(euler), get<1>(euler), get<2>(euler));
 
-    auto nh = ros::NodeHandle();
+    auto nh = ros::NodeHandle("~");
     auto pub = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 10);
 
     auto loop_rate = ros::Rate(10);
