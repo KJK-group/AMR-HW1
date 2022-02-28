@@ -1,6 +1,7 @@
 husky_controllers
 /home/jens/hw1_ws/devel/.private/husky_controllers/cmake.lock /home/jens/hw1_ws/devel/./cmake.lock
 /home/jens/hw1_ws/devel/.private/husky_controllers/lib/husky_controllers/second_order_trajectory_follower /home/jens/hw1_ws/devel/lib/husky_controllers/second_order_trajectory_follower
+/home/jens/hw1_ws/devel/.private/husky_controllers/lib/husky_controllers/waypoint_navigation /home/jens/hw1_ws/devel/lib/husky_controllers/waypoint_navigation
 /home/jens/hw1_ws/devel/.private/husky_controllers/lib/husky_controllers/goto_target /home/jens/hw1_ws/devel/lib/husky_controllers/goto_target
 /home/jens/hw1_ws/devel/.private/husky_controllers/lib/husky_controllers/first_order_trajectory_follower /home/jens/hw1_ws/devel/lib/husky_controllers/first_order_trajectory_follower
 /home/jens/hw1_ws/devel/.private/husky_controllers/lib/pkgconfig/husky_controllers.pc /home/jens/hw1_ws/devel/lib/pkgconfig/husky_controllers.pc

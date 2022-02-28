@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(husky_controllers)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -140,6 +140,7 @@ include_directories(
 add_executable(goto_target src/goto_target.cpp)
 add_executable(first_order_trajectory_follower src/first_order_trajectory_follower.cpp)
 add_executable(second_order_trajectory_follower src/second_order_trajectory_follower.cpp)
+add_executable(waypoint_navigation src/waypoint_navigation.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -159,6 +160,9 @@ target_link_libraries(first_order_trajectory_follower
   ${catkin_LIBRARIES}
 )
 target_link_libraries(second_order_trajectory_follower
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(waypoint_navigation
   ${catkin_LIBRARIES}
 )
 

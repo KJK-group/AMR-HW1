@@ -31,23 +31,6 @@ auto rad_to_deg(float rad) -> float {
 }
 
 auto quarternion_to_euler(float x, float y, float z, float w) -> triple {
-    // float t0 = 2.0 * (w * x + y * z);
-    // float t1 = 1.0 - 2.0 * (x * x + y * y);
-    // float X = rad_to_deg(atan2(t0, t1));
-
-    // float t2 = 2.0 * (w * y - z * x);
-    // t2 = t2 > 1.0 ? 1.0 : t2;
-    // t2 = t2 < -1.0 ? -1.0 : t2;
-    // float Y = rad_to_deg(asin(t2));
-
-    // float t3 = 2.0 * (w * z + x * y);
-    // float t4 = 1.0 - 2.0 * (y * y + z * z);
-    // float Z = rad_to_deg(atan2(t3, t4));
-
-    // X = atan2(t0, t1);
-    // Y = asin(t2);
-    // Z = atan2(t3, t4);
-
     tf::Quaternion q(x, y, z, w);
     tf::Matrix3x3 m(q);
     double roll, pitch, theta;
@@ -118,17 +101,6 @@ auto main(int argc, char** argv) -> int {
         ROS_INFO("  rho:   %.5f", rho);
         ROS_INFO("  beta:  %.5f", beta);
         ROS_INFO("  alpha: %.5f", alpha);
-        // ROS_INFO_STREAM(setprecision(5) << fixed);
-        
-        // ROS_INFO_STREAM("pose:");
-        // ROS_INFO_STREAM(setw(9) << left << "  x:" << setprecision(5) << curr_x);
-        // ROS_INFO_STREAM(setw(9) << left << "  y:" << setprecision(5) << curr_y);
-        // ROS_INFO_STREAM(setw(9) << left << "  theta:" << setprecision(5) << theta);
-
-        // ROS_INFO_STREAM("errors:");
-        // ROS_INFO_STREAM(setw(9) << left << "  rho:" << setprecision(5) << rho);
-        // ROS_INFO_STREAM(setw(9) << left << "  beta:" << setprecision(5) << beta);
-        // ROS_INFO_STREAM(setw(9) << left << "  alpha:" << setprecision(5) << alpha);
 
         pub.publish(command);
     };
