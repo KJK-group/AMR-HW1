@@ -12,16 +12,16 @@
 
 #include "husky_controllers/utility.h"
 
-#define KP 0.2
-#define KA 0.1
+#define KP 1
+#define KA 1
 #define KB 0.01
-#define POS_TOLERANCE 0.2
-#define ANGLE_TOLERANCE 0.025
+#define POS_TOLERANCE 0.1
+#define ANGLE_TOLERANCE 0.015
 
 using namespace std;
 
 auto goal = make_pair(0, 0);
-pair<float, float> waypoints[] = {make_pair(11.5, 0.5), make_pair(11.5, 5.5), make_pair(4, 5.5), make_pair(0, 0)};
+pair<float, float> waypoints[] = {make_pair(11.5, 0.5), make_pair(11.5, 4.5), make_pair(4.5, 4.5), make_pair(0, 0)};
 
 auto driving = false;
 
@@ -44,6 +44,9 @@ auto main(int argc, char** argv) -> int {
             return;
         }
         goal = waypoints[waypoint_index];
+        // ROS_WARN("going to:");
+        // ROS_WARN("  x: %.5f", goal.first);
+        // ROS_WARN("  y: %.5f", goal.second);
 
         auto curr_x = msg->pose.pose.position.x;
         auto curr_y = msg->pose.pose.position.y;
@@ -60,13 +63,19 @@ auto main(int argc, char** argv) -> int {
         // beta = beta >= 0 ? beta : 2 * M_PI + beta;
 
         auto alpha = beta - theta;
+        if (alpha > M_PI) {
+            alpha -= 2*M_PI;
+        }
+        else if (alpha < -M_PI) {
+            alpha += 2*M_PI;
+        }
         // Heading error
-        if (theta < 0 and beta >= 0) {
-            alpha = 2 * M_PI - alpha;
-        }
-        else if (theta >= 0 and beta < 0) {
-            alpha = 2 * M_PI + alpha;
-        }
+        // if (theta < 0 and beta >= 0) {
+        //     alpha = 2 * M_PI - alpha;
+        // }
+        // else if (theta >= 0 and beta < 0) {
+        //     alpha = 2 * M_PI + alpha;
+        // }
         // alpha = alpha > M_PI ? M_PI - alpha : alpha;
 
         auto command = geometry_msgs::Twist();
@@ -75,7 +84,7 @@ auto main(int argc, char** argv) -> int {
         auto omega = KA * alpha; //+ KB * beta;
 
         ROS_WARN("state: ");
-        if (alpha > ANGLE_TOLERANCE && !driving) {
+        if (abs(alpha) > ANGLE_TOLERANCE && !driving) {
             ROS_WARN("  turning");
             command.linear.x = 0;
             command.angular.z = omega;
