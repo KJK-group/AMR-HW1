@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  message_generation
 )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
@@ -51,11 +52,10 @@ find_package(Boost REQUIRED COMPONENTS system)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  AccumulatedDistance.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -72,10 +72,10 @@ find_package(Boost REQUIRED COMPONENTS system)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   geometry_msgs#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  geometry_msgs#   std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -141,6 +141,7 @@ add_executable(goto_target src/goto_target.cpp)
 add_executable(first_order_trajectory_follower src/first_order_trajectory_follower.cpp)
 add_executable(second_order_trajectory_follower src/second_order_trajectory_follower.cpp)
 add_executable(waypoint_navigation src/waypoint_navigation.cpp)
+add_executable(distance_estimator src/distance_estimator.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -163,6 +164,9 @@ target_link_libraries(second_order_trajectory_follower
   ${catkin_LIBRARIES}
 )
 target_link_libraries(waypoint_navigation
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(distance_estimator
   ${catkin_LIBRARIES}
 )
 
