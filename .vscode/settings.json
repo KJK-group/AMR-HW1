@@ -55,5 +55,6 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/src/husky_controllers"
 }

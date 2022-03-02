@@ -29,7 +29,7 @@ ros::Publisher pub;
 ros::Subscriber sub;
 
 auto main(int argc, char** argv) -> int {
-    ros::init(argc, argv, "first_order_trajectory_follower");
+    ros::init(argc, argv, "waypoint_navigation");
 
     auto nh = ros::NodeHandle("~");
     pub = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 10);
@@ -112,6 +112,10 @@ auto main(int argc, char** argv) -> int {
         ROS_INFO("  rho:   %.5f", rho);
         ROS_INFO("  beta:  %.5f", beta);
         ROS_INFO("  alpha: %.5f", alpha);
+
+        ROS_INFO("control outputs:");
+        ROS_INFO("  v:     %.5f", v);
+        ROS_INFO("  omega: %.5f", omega);
 
         pub.publish(command);
     };

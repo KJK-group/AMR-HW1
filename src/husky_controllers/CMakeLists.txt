@@ -53,6 +53,8 @@ find_package(Boost REQUIRED COMPONENTS system)
 
 ## Generate messages in the 'msg' folder
 add_message_files(
+  DIRECTORY
+  ${CMAKE_CURRENT_SOURCE_DIR}/msg
   FILES
   AccumulatedDistance.msg
 )
