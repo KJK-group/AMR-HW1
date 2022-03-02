@@ -84,7 +84,7 @@
                                         <absolute_minimum>90</absolute_minimum>
                                         <relative_maximum>0</relative_maximum>
                                         <relative_minimum>-1000</relative_minimum>
-                                        <type>1</type>
+                                        <type>0</type>
                                     </scale>
                                     <topic>/husky_controllers/yaw/odometry_filtered</topic>
                                     <type>husky_controllers/Yaw</type>

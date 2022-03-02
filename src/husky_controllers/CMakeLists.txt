@@ -145,6 +145,7 @@ add_executable(first_order_trajectory_follower src/first_order_trajectory_follow
 add_executable(second_order_trajectory_follower src/second_order_trajectory_follower.cpp)
 add_executable(waypoint_navigation src/waypoint_navigation.cpp)
 add_executable(distance_yaw_estimator src/distance_yaw_estimator.cpp)
+add_executable(camera2_pose_publisher src/camera2_pose_publisher.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -170,6 +171,9 @@ target_link_libraries(waypoint_navigation
   ${catkin_LIBRARIES}
 )
 target_link_libraries(distance_yaw_estimator
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(camera2_pose_publisher
   ${catkin_LIBRARIES}
 )
 
