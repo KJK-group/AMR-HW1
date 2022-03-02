@@ -57,6 +57,7 @@ add_message_files(
   ${CMAKE_CURRENT_SOURCE_DIR}/msg
   FILES
   AccumulatedDistance.msg
+  Yaw.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -143,7 +144,7 @@ add_executable(goto_target src/goto_target.cpp)
 add_executable(first_order_trajectory_follower src/first_order_trajectory_follower.cpp)
 add_executable(second_order_trajectory_follower src/second_order_trajectory_follower.cpp)
 add_executable(waypoint_navigation src/waypoint_navigation.cpp)
-add_executable(distance_estimator src/distance_estimator.cpp)
+add_executable(distance_yaw_estimator src/distance_yaw_estimator.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -168,7 +169,7 @@ target_link_libraries(second_order_trajectory_follower
 target_link_libraries(waypoint_navigation
   ${catkin_LIBRARIES}
 )
-target_link_libraries(distance_estimator
+target_link_libraries(distance_yaw_estimator
   ${catkin_LIBRARIES}
 )
 
