@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
+  tf2_ros
 )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
@@ -112,7 +113,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES husky_controllers
-#  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
+   CATKIN_DEPENDS geometry_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -147,6 +148,8 @@ add_executable(waypoint_navigation src/waypoint_navigation.cpp)
 add_executable(distance_yaw_estimator src/distance_yaw_estimator.cpp)
 add_executable(camera2_pose_publisher src/camera2_pose_publisher.cpp)
 
+
+#add_dependencies(husky_controllers camera2_pose_publisher)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -155,7 +158,8 @@ add_executable(camera2_pose_publisher src/camera2_pose_publisher.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(camera2_pose_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(distance_yaw_estimator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(goto_target

@@ -6,7 +6,7 @@ husky_controllers
 /home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/python3/dist-packages/husky_controllers/msg/__init__.py /home/parallels/AMR-HW1/devel/lib/python3/dist-packages/husky_controllers/msg/__init__.py
 /home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/pkgconfig/husky_controllers.pc /home/parallels/AMR-HW1/devel/lib/pkgconfig/husky_controllers.pc
 /home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/husky_controllers/goto_target /home/parallels/AMR-HW1/devel/lib/husky_controllers/goto_target
-/home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/husky_controllers/distance_estimator /home/parallels/AMR-HW1/devel/lib/husky_controllers/distance_estimator
+/home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/husky_controllers/camera2_pose_publisher /home/parallels/AMR-HW1/devel/lib/husky_controllers/camera2_pose_publisher
 /home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/husky_controllers/second_order_trajectory_follower /home/parallels/AMR-HW1/devel/lib/husky_controllers/second_order_trajectory_follower
 /home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/husky_controllers/waypoint_navigation /home/parallels/AMR-HW1/devel/lib/husky_controllers/waypoint_navigation
 /home/parallels/AMR-HW1/devel/.private/husky_controllers/lib/husky_controllers/distance_yaw_estimator /home/parallels/AMR-HW1/devel/lib/husky_controllers/distance_yaw_estimator
