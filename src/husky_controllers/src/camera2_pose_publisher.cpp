@@ -53,7 +53,16 @@ auto odometry_filtered_cb(const nav_msgs::Odometry::ConstPtr& msg) -> void {
     camera_2_odometry.pose.pose.orientation.z = q_new.z();
     camera_2_odometry.pose.pose.orientation.w = q_new.w();
 
-    camera2_pose_pub.publish(camera_2_odometry.pose.pose.orientation);
+    camera_2_odometry.twist  = msg->twist;
+    camera_2_odometry.child_frame_id = "camera_2_link";
+
+    auto header = msg->header;
+    header.frame_id = "base_link";
+        camera_2_odometry.header = msg->header;
+
+    camera_2_odometry.pose.covariance = msg->pose.covariance;
+
+    camera2_pose_pub.publish(camera_2_odometry);
 }
 
 auto main(int argc, char** argv) -> int {

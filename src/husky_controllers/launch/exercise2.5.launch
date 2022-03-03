@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="package" value="husky_controllers"/>
+    <arg name="package_path" value="$(find husky_controllers)"/>
+
+    <node name="base_link_to_camera_link" pkg="tf2_ros" type="static_transform_publisher" args="1 -0.5 0.5 0 0 0 base_link camera_2_link"/>
+    
+    <include file="$(find husky_gazebo)/launch/husky_empty_world.launch">
+        <arg name="world_name" value="$(arg package_path)/world/maze2.world"/>
+    </include>
+
+    <group ns="$(arg package)">
+        <node name="camera2_pose_publisher" pkg="$(arg package)" type="camera2_pose_publisher"/>
+        <node name="waypoint_navigation" pkg="$(arg package)" type="waypoint_navigation"/>
+    </group>
+    
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg package_path)/rviz/exercise2.5.rviz"/>
+</launch>
