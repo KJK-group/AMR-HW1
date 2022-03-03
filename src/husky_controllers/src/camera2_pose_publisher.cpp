@@ -14,7 +14,7 @@ tf2_ros::Buffer* tfBuffer;
 auto odometry_filtered_cb(const nav_msgs::Odometry::ConstPtr& msg) -> void {
     geometry_msgs::TransformStamped transformStamped;
     try{
-        transformStamped = tfBuffer->lookupTransform("camera_2_link", "base_link", ros::Time(0));
+        transformStamped = tfBuffer->lookupTransform("base_link", "camera_2_link", ros::Time(0));
     }
     catch (tf2::TransformException &ex) {
       ROS_WARN("%s",ex.what());
