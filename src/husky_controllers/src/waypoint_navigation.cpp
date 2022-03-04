@@ -20,7 +20,8 @@
 
 using namespace std;
 
-auto goal = make_pair(0, 0);
+auto goal = make_pair(0, 0); // Goal consists of x and y coordinates
+// The following coordinates are defined to get the husky thoug the maze
 pair<float, float> waypoints[] = {make_pair(11.5, 0.5), make_pair(11.5, 4.5), make_pair(4.5, 4.5), make_pair(0, 0)};
 
 auto driving = false;
@@ -28,9 +29,10 @@ auto driving = false;
 ros::Publisher pub;
 ros::Subscriber sub;
 
-auto main(int argc, char** argv) -> int {
+auto main(int argc, char **argv) -> int
+{
+    // Initialise the node and its manager
     ros::init(argc, argv, "waypoint_navigation");
-
     auto nh = ros::NodeHandle("~");
     pub = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 10);
 
@@ -38,8 +40,10 @@ auto main(int argc, char** argv) -> int {
 
     auto waypoint_index = 0;
 
-    auto odom_cb = [&](const nav_msgs::Odometry::ConstPtr& msg) {
-        if (waypoint_index > size(waypoints)) {
+    auto odom_cb = [&](const nav_msgs::Odometry::ConstPtr &msg)
+    {
+        if (waypoint_index > size(waypoints))
+        {
             sub.shutdown();
             return;
         }
@@ -55,19 +59,21 @@ auto main(int argc, char** argv) -> int {
         auto rho = sqrt(pow(curr_x - goal.first, 2) + pow(curr_y - goal.second, 2));
 
         // Desired heading
-        auto theta = tf::getYaw(msg->pose.pose.orientation);            // vehicle yaw
-        auto beta = atan2(goal.second - curr_y, goal.first - curr_x);   // desired heading
+        auto theta = tf::getYaw(msg->pose.pose.orientation);          // Vehicle yaw
+        auto beta = atan2(goal.second - curr_y, goal.first - curr_x); // Desired heading
 
         // Convert theta and beta to radians [0 ; 2pi]
         // theta = theta >= 0 ? theta : 2 * M_PI + theta;
         // beta = beta >= 0 ? beta : 2 * M_PI + beta;
 
         auto alpha = beta - theta;
-        if (alpha > M_PI) {
-            alpha -= 2*M_PI;
+        if (alpha > M_PI)
+        {
+            alpha -= 2 * M_PI;
         }
-        else if (alpha < -M_PI) {
-            alpha += 2*M_PI;
+        else if (alpha < -M_PI)
+        {
+            alpha += 2 * M_PI;
         }
         // Heading error
         // if (theta < 0 and beta >= 0) {
@@ -83,6 +89,7 @@ auto main(int argc, char** argv) -> int {
         auto v = KP * rho;
         auto omega = KA * alpha + KB * beta;
 
+<<<<<<< HEAD
         //ROS_WARN("state: ");
         if (abs(alpha) > ANGLE_TOLERANCE && !driving) {
             //ROS_WARN("  turning");
@@ -91,38 +98,57 @@ auto main(int argc, char** argv) -> int {
         }
         else if (rho > POS_TOLERANCE) {
             //ROS_WARN("  driving");
+=======
+        ROS_WARN("state: ");
+        if (abs(alpha) > ANGLE_TOLERANCE && !driving)
+        {
+            ROS_WARN("  turning");
+            command.linear.x = 0;
+            command.angular.z = omega;
+        }
+        else if (rho > POS_TOLERANCE)
+        {
+            ROS_WARN("  driving");
+>>>>>>> 88e2de904f162536e262dc125c0556a23fe0178c
             driving = true;
             command.linear.x = v;
             command.angular.z = omega;
         }
+<<<<<<< HEAD
         else {
             //ROS_WARN("  stopping");
+=======
+        else
+        {
+            ROS_WARN("  stopping");
+>>>>>>> 88e2de904f162536e262dc125c0556a23fe0178c
             driving = false;
             waypoint_index++;
             command.linear.x = 0;
             command.angular.z = 0;
         }
 
-        ROS_INFO("pose:");
-        ROS_INFO("  x:     %.5f", curr_x);
-        ROS_INFO("  y:     %.5f", curr_y);
-        ROS_INFO("  theta: %.5f", theta);
+        // ROS_INFO("pose:");
+        // ROS_INFO("  x:     %.5f", curr_x);
+        // ROS_INFO("  y:     %.5f", curr_y);
+        // ROS_INFO("  theta: %.5f", theta);
 
-        ROS_INFO("errors:");
-        ROS_INFO("  rho:   %.5f", rho);
-        ROS_INFO("  beta:  %.5f", beta);
-        ROS_INFO("  alpha: %.5f", alpha);
+        // ROS_INFO("errors:");
+        // ROS_INFO("  rho:   %.5f", rho);
+        // ROS_INFO("  beta:  %.5f", beta);
+        // ROS_INFO("  alpha: %.5f", alpha);
 
-        ROS_INFO("control outputs:");
-        ROS_INFO("  v:     %.5f", v);
-        ROS_INFO("  omega: %.5f", omega);
+        // ROS_INFO("control outputs:");
+        // ROS_INFO("  v:     %.5f", v);
+        // ROS_INFO("  omega: %.5f", omega);
 
         pub.publish(command);
     };
 
     sub = nh.subscribe<nav_msgs::Odometry>("/odometry/filtered", 10, odom_cb);
 
-    while(ros::ok()) {
+    while (ros::ok())
+    {
         ros::spinOnce();
         loop_rate.sleep();
     }
