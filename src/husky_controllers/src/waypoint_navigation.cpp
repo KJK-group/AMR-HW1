@@ -89,16 +89,6 @@ auto main(int argc, char **argv) -> int
         auto v = KP * rho;
         auto omega = KA * alpha + KB * beta;
 
-<<<<<<< HEAD
-        //ROS_WARN("state: ");
-        if (abs(alpha) > ANGLE_TOLERANCE && !driving) {
-            //ROS_WARN("  turning");
-            command.linear.x = 0;
-            command.angular.z = omega;
-        }
-        else if (rho > POS_TOLERANCE) {
-            //ROS_WARN("  driving");
-=======
         ROS_WARN("state: ");
         if (abs(alpha) > ANGLE_TOLERANCE && !driving)
         {
@@ -109,19 +99,13 @@ auto main(int argc, char **argv) -> int
         else if (rho > POS_TOLERANCE)
         {
             ROS_WARN("  driving");
->>>>>>> 88e2de904f162536e262dc125c0556a23fe0178c
             driving = true;
             command.linear.x = v;
             command.angular.z = omega;
         }
-<<<<<<< HEAD
-        else {
-            //ROS_WARN("  stopping");
-=======
         else
         {
             ROS_WARN("  stopping");
->>>>>>> 88e2de904f162536e262dc125c0556a23fe0178c
             driving = false;
             waypoint_index++;
             command.linear.x = 0;
