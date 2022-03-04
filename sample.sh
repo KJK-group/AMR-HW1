@@ -40,7 +40,7 @@ echo 'timestamp,x,y' > "$of"
 rostopic echo /odometry/filtered/pose/pose/position -p | cut -f -3 -d , >> "$of" &
 odometry_filtered_pid=$!
 
-echo 'timestamp,x,y' > "$of"
+echo 'timestamp,error' > "$rho"
 rostopic echo /husky_controllers/position_error -p | cut -f -3 -d , >> "$rho" &
 rho_pid=$!
 

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="package" value="husky_controllers"/>
+    <arg name="package_path" value="$(find husky_controllers)"/>
+    <arg name="slope" default="1"/>
+    <arg name="k_rho" default="1"/>
+    <arg name="k_alpha" default="1"/>
+    <arg name="k_beta" default="1"/>
+    
+    <include file="$(find husky_gazebo)/launch/husky_empty_world.launch"/>
+
+    <node
+    name="first_order_trajectory_follower"
+    pkg="$(arg package)"
+    type="first_order_trajectory_follower"
+    args="$(arg slope) $(arg k_rho) $(arg k_alpha) $(arg k_beta)"/>
+</launch>
