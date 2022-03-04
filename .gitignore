@@ -61,3 +61,6 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+
+
+/.catkin_tools/profiles/default/devel_collisions.txt

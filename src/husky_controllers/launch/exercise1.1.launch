@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="package" value="husky_controllers"/>
+    <arg name="package_path" value="$(find husky_controllers)"/>
+    <arg name="target_x" default="5"/>
+    <arg name="target_y" default="5"/>
+    <arg name="k_rho" default="1"/>
+    <arg name="k_alpha" default="1"/>
+    <arg name="k_beta" default="1"/>
+    
+    <include file="$(find husky_gazebo)/launch/husky_empty_world.launch"/>
+
+    <node
+    name="husky_goto_target"
+    pkg="$(arg package)"
+    type="goto_target"
+    args="$(arg target_x) $(arg target_y) $(arg k_rho) $(arg k_alpha) $(arg k_beta)"/>
+</launch>

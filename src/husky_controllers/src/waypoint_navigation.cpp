@@ -48,23 +48,16 @@ auto main(int argc, char **argv) -> int
             return;
         }
         goal = waypoints[waypoint_index];
-        // ROS_WARN("going to:");
-        // ROS_WARN("  x: %.5f", goal.first);
-        // ROS_WARN("  y: %.5f", goal.second);
 
         auto curr_x = msg->pose.pose.position.x;
         auto curr_y = msg->pose.pose.position.y;
 
-        // Position error
+        // euclidean position error
         auto rho = sqrt(pow(curr_x - goal.first, 2) + pow(curr_y - goal.second, 2));
 
         // Desired heading
         auto theta = tf::getYaw(msg->pose.pose.orientation);          // Vehicle yaw
         auto beta = atan2(goal.second - curr_y, goal.first - curr_x); // Desired heading
-
-        // Convert theta and beta to radians [0 ; 2pi]
-        // theta = theta >= 0 ? theta : 2 * M_PI + theta;
-        // beta = beta >= 0 ? beta : 2 * M_PI + beta;
 
         auto alpha = beta - theta;
         if (alpha > M_PI)
