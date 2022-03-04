@@ -83,20 +83,20 @@ auto main(int argc, char** argv) -> int {
         auto v = KP * rho;
         auto omega = KA * alpha + KB * beta;
 
-        ROS_WARN("state: ");
+        //ROS_WARN("state: ");
         if (abs(alpha) > ANGLE_TOLERANCE && !driving) {
-            ROS_WARN("  turning");
+            //ROS_WARN("  turning");
             command.linear.x = 0;
             command.angular.z = omega;
         }
         else if (rho > POS_TOLERANCE) {
-            ROS_WARN("  driving");
+            //ROS_WARN("  driving");
             driving = true;
             command.linear.x = v;
             command.angular.z = omega;
         }
         else {
-            ROS_WARN("  stopping");
+            //ROS_WARN("  stopping");
             driving = false;
             waypoint_index++;
             command.linear.x = 0;

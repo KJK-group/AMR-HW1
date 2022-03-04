@@ -11,7 +11,7 @@
     </include>
 
     <group ns="$(arg package)">
-        <node name="camera2_pose_publisher" pkg="$(arg package)" type="camera2_pose_publisher"/>
+        <node name="camera2_pose_publisher" pkg="$(arg package)" type="camera2_pose_publisher" output="screen"/>
         <node name="waypoint_navigation" pkg="$(arg package)" type="waypoint_navigation"/>
     </group>
     
