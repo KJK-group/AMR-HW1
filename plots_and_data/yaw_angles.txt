@@ -1,4 +1,4 @@
-# /husky_controllers/yaw/model_states/recceipt_time, /husky_controllers/yaw/model_states/yaw, /husky_controllers/yaw/odometry_filtered/recceipt_time, /husky_controllers/yaw/odometry_filtered/yaw
+model_states_recceipt_time,model_states_yaw,odometry_filtered_recceipt_time,odometry_filtered_yaw
 19.39199999999999946, 1.2038982950148068601e-06, 19.39199999999999946, -9.768237216752981701e-05
 19.39199999999999946, 1.2038982650765840405e-06, 19.39199999999999946, -9.7684078828638043089e-05
 19.39199999999999946, 1.2038982350356015131e-06, 19.39199999999999946, -9.7684577191154106407e-05

@@ -14,10 +14,11 @@
 #include <string>
 #include <algorithm>
 //#include <Eigen/Geometry>
+#include "husky_controllers/Error.h"
 
 #define KP 0.2
 #define KA 0.5
-#define KB 0.01
+#define KB 0
 #define POS_TOLERANCE 0.2
 
 using namespace std;
@@ -30,50 +31,33 @@ auto rad_to_deg(float rad) -> float {
     return rad * 180/M_PI;
 }
 
-auto quarternion_to_euler(float x, float y, float z, float w) -> triple {
-    tf::Quaternion q(x, y, z, w);
-    tf::Matrix3x3 m(q);
-    double roll, pitch, theta;
-    m.getRPY(roll, pitch, theta);
-
-    return make_tuple(roll, pitch, theta);
-}
-
 auto main(int argc, char** argv) -> int {
+    // ROS initialisations
     ros::init(argc, argv, "husky_goto_target");
 
-    auto euler = quarternion_to_euler(4.1, 6.2, 7.4, 2.9);
-    ROS_WARN("x: %.5f\ty: %.5f\tz: %.5f", get<0>(euler), get<1>(euler), get<2>(euler));
-
     auto nh = ros::NodeHandle("~");
+    // publisher to cmd_vel for the husky
     auto pub = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 10);
-
+    auto pub_error = nh.advertise<husky_controllers::Error>("/husky_controllers/position_error", 10);
     auto loop_rate = ros::Rate(10);
 
-    auto goal_x = stoi(argv[1]);
-    auto goal_y = stoi(argv[2]);
-
-    goal.first = goal_x;
-    goal.second = goal_y;
+    // passing command line arguments into goal coordinate pair
+    goal.first = stoi(argv[1]);
+    goal.second = stoi(argv[2]);
 
     auto odom_cb = [&](const nav_msgs::Odometry::ConstPtr& msg) {
-    //auto odom_cb = [&](const gazebo_msgs::ModelStates::ConstPtr& msg) {
-        auto qx = msg->pose.pose.orientation.x;
-        auto qy = msg->pose.pose.orientation.y;
-        auto qz = msg->pose.pose.orientation.z;
-        auto qw = msg->pose.pose.orientation.w;
-        // auto qx = msg->pose[sizeof(msg->pose)/sizeof(msg.pose[0])].orientation.x;
-        // auto qy = msg->pose[sizeof(msg->pose)/sizeof(msg.pose[0])].orientation.y;
-        // auto qz = msg->pose[sizeof(msg->pose)/sizeof(msg.pose[0])].orientation.z;
-        // auto qw = msg->pose[sizeof(msg->pose)/sizeof(msg.pose[0])].orientation.w;
-
+        // Vehicle 2D position
         auto curr_x = msg->pose.pose.position.x;
         auto curr_y = msg->pose.pose.position.y;
-        // Position error
-        auto rho = sqrt(pow(curr_x - goal.first, 2) + pow(curr_y - goal.second, 2));
 
-        // Desired heading
-        auto theta = get<2>(quarternion_to_euler(qx, qy, qz, qw));      // vehicle yaw
+        // Position error
+        auto rho = sqrt(pow(curr_x - goal.first, 2) + pow(curr_y - goal.second, 2));    // Euclidian position error
+        auto error_msg = husky_controllers::Error(); // Instantiate custom Error message
+        error_msg.error = rho;
+        pub_error.publish(error_msg);
+
+        // Heading
+        auto theta = tf::getYaw(msg->pose.pose.orientation);            // vehicle yaw
         auto beta = -atan2(goal.second - curr_y, goal.first - curr_x);  // desired heading
 
         // Heading error
@@ -82,7 +66,7 @@ auto main(int argc, char** argv) -> int {
         auto command = geometry_msgs::Twist();
 
         auto v = KP * rho;
-        auto omega = KA * alpha; //+ KB * beta;
+        auto omega = KA * alpha + KB * beta;
 
         if (rho > POS_TOLERANCE) {
             command.linear.x = v;
@@ -92,6 +76,7 @@ auto main(int argc, char** argv) -> int {
             command.linear.x = 0;
             command.angular.z = 0;
         }
+
         ROS_INFO("pose:");
         ROS_INFO("  x:     %.5f", curr_x);
         ROS_INFO("  y:     %.5f", curr_y);
@@ -102,11 +87,14 @@ auto main(int argc, char** argv) -> int {
         ROS_INFO("  beta:  %.5f", beta);
         ROS_INFO("  alpha: %.5f", alpha);
 
+        ROS_INFO("control outputs:");
+        ROS_INFO("  v:     %.5f", v);
+        ROS_INFO("  omega: %.5f", omega);
+
         pub.publish(command);
     };
 
-    auto sub = nh.subscribe<nav_msgs::Odometry>("/husky_velocity_controller/odom", 10, odom_cb);
-    //auto sub = nh.subscribe<gazebo_msgs::ModelStates>("/gazebo/model_states", 10, odom_cb);
+    auto sub = nh.subscribe<nav_msgs::Odometry>("/odometry/filtered", 10, odom_cb);
 
     while(ros::ok()) {
         ros::spinOnce();

@@ -14,9 +14,9 @@
 
 #define KP 1
 #define KA 1
-#define KB 0.01
+#define KB 0
 #define POS_TOLERANCE 0.1
-#define ANGLE_TOLERANCE 0.015
+#define ANGLE_TOLERANCE 0.02
 
 using namespace std;
 
@@ -81,7 +81,7 @@ auto main(int argc, char** argv) -> int {
         auto command = geometry_msgs::Twist();
 
         auto v = KP * rho;
-        auto omega = KA * alpha; //+ KB * beta;
+        auto omega = KA * alpha + KB * beta;
 
         ROS_WARN("state: ");
         if (abs(alpha) > ANGLE_TOLERANCE && !driving) {

@@ -58,6 +58,7 @@ add_message_files(
   ${CMAKE_CURRENT_SOURCE_DIR}/msg
   FILES
   AccumulatedDistance.msg
+  Error.msg
   Yaw.msg
 )
 
