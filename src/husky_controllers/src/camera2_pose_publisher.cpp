@@ -14,7 +14,7 @@ tf2_ros::Buffer* tfBuffer;
 auto odometry_filtered_cb(const nav_msgs::Odometry::ConstPtr& msg) -> void {
     geometry_msgs::TransformStamped transformStamped;
     try{
-        transformStamped = tfBuffer->lookupTransform("base_link", "camera_2_link", ros::Time(0));
+        transformStamped = tfBuffer->lookupTransform("camera_2_link", "base_link", ros::Time(0));
     }
     catch (tf2::TransformException &ex) {
       ROS_WARN("%s",ex.what());
@@ -44,7 +44,7 @@ auto odometry_filtered_cb(const nav_msgs::Odometry::ConstPtr& msg) -> void {
     );
     //tf2::fromMsg(transformStamped.transform.rotation, q_rot);
 
-    auto q_new = q_rot*q_origin;  // Calculate the new orientation / http://wiki.ros.org/tf2/Tutorials/Quaternions
+    auto q_new = q_rot * q_origin;  // Calculate the new orientation / http://wiki.ros.org/tf2/Tutorials/Quaternions
     q_new.normalize();
 
     //tf2::convert(q_new, camera_2_odometry.pose.pose.orientation);
