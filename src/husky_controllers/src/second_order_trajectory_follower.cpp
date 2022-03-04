@@ -30,9 +30,6 @@ auto trajectory_slope(float x) -> float {
 auto main(int argc, char** argv) -> int {
     ros::init(argc, argv, "second_order_trajectory_follower");
 
-    auto euler = quarternion_to_euler(4.1, 6.2, 7.4, 2.9);
-    ROS_WARN("x: %.5f\ty: %.5f\tz: %.5f", get<0>(euler), get<1>(euler), get<2>(euler));
-
     auto nh = ros::NodeHandle("~");
     auto pub = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 10);
 
@@ -61,7 +58,7 @@ auto main(int argc, char** argv) -> int {
         auto command = geometry_msgs::Twist();
 
         auto v = KP * rho;
-        auto omega = KA * alpha; //+ KB * beta;
+        auto omega = KA * alpha;// + KB * beta;
 
         if (rho > POS_TOLERANCE) {
             command.linear.x = v;
