@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
+  tf2_ros
 )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
@@ -58,6 +59,7 @@ add_message_files(
   FILES
   AccumulatedDistance.msg
   Error.msg
+  Yaw.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -112,7 +114,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES husky_controllers
-#  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
+   CATKIN_DEPENDS geometry_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -144,8 +146,11 @@ add_executable(goto_target src/goto_target.cpp)
 add_executable(first_order_trajectory_follower src/first_order_trajectory_follower.cpp)
 add_executable(second_order_trajectory_follower src/second_order_trajectory_follower.cpp)
 add_executable(waypoint_navigation src/waypoint_navigation.cpp)
-add_executable(distance_estimator src/distance_estimator.cpp)
+add_executable(distance_yaw_estimator src/distance_yaw_estimator.cpp)
+add_executable(camera2_pose_publisher src/camera2_pose_publisher.cpp)
 
+
+#add_dependencies(husky_controllers camera2_pose_publisher)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -154,7 +159,8 @@ add_executable(distance_estimator src/distance_estimator.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(camera2_pose_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(distance_yaw_estimator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(goto_target
@@ -169,7 +175,10 @@ target_link_libraries(second_order_trajectory_follower
 target_link_libraries(waypoint_navigation
   ${catkin_LIBRARIES}
 )
-target_link_libraries(distance_estimator
+target_link_libraries(distance_yaw_estimator
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(camera2_pose_publisher
   ${catkin_LIBRARIES}
 )
 
@@ -208,12 +217,13 @@ target_link_libraries(distance_estimator
 #   PATTERN ".svn" EXCLUDE
 # )
 
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+# Mark other files for installation (e.g. launch and bag files, etc.)
+install(FILES
+  # myfile1
+  # myfile2
+  ${CMAKE_CURRENT_SOURCE_DIR}/launch/exercise2.5.launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 #############
 ## Testing ##

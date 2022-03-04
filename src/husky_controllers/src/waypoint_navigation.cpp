@@ -29,7 +29,7 @@ ros::Publisher pub;
 ros::Subscriber sub;
 
 auto main(int argc, char** argv) -> int {
-    ros::init(argc, argv, "first_order_trajectory_follower");
+    ros::init(argc, argv, "waypoint_navigation");
 
     auto nh = ros::NodeHandle("~");
     pub = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 10);
