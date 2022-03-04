@@ -221,6 +221,10 @@ target_link_libraries(camera2_pose_publisher
 install(FILES
   # myfile1
   # myfile2
+  ${CMAKE_CURRENT_SOURCE_DIR}/launch/exercise2.1.launch
+  ${CMAKE_CURRENT_SOURCE_DIR}/launch/exercise2.2.launch
+  ${CMAKE_CURRENT_SOURCE_DIR}/launch/exercise2.3.launch
+  ${CMAKE_CURRENT_SOURCE_DIR}/launch/exercise2.4.launch
   ${CMAKE_CURRENT_SOURCE_DIR}/launch/exercise2.5.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
