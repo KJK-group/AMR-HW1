@@ -26,7 +26,7 @@
                         <curve_0>
                             <axes>
                                 <x_axis>
-                                    <field>twist/twist/linear/x</field>
+                                    <field>linear_acceleration/x</field>
                                     <field_type>1</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -35,11 +35,11 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </x_axis>
                                 <y_axis>
-                                    <field>twist/twist/linear/x</field>
+                                    <field>linear_acceleration/x</field>
                                     <field_type>0</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -48,8 +48,8 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </y_axis>
                             </axes>
                             <color>
@@ -77,7 +77,7 @@
                         <curve_1>
                             <axes>
                                 <x_axis>
-                                    <field></field>
+                                    <field>linear_acceleration/y</field>
                                     <field_type>1</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -86,11 +86,11 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </x_axis>
                                 <y_axis>
-                                    <field>twist/twist/linear/y</field>
+                                    <field>linear_acceleration/y</field>
                                     <field_type>0</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -99,8 +99,8 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </y_axis>
                             </axes>
                             <color>
@@ -128,7 +128,7 @@
                         <curve_2>
                             <axes>
                                 <x_axis>
-                                    <field></field>
+                                    <field>linear_acceleration/z</field>
                                     <field_type>1</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -137,11 +137,11 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </x_axis>
                                 <y_axis>
-                                    <field>twist/twist/linear/z</field>
+                                    <field>linear_acceleration/z</field>
                                     <field_type>0</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -150,8 +150,8 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </y_axis>
                             </axes>
                             <color>
@@ -181,7 +181,7 @@
                         <visible>true</visible>
                     </legend>
                     <plot_rate>30</plot_rate>
-                    <title>Linear velocity</title>
+                    <title>Linear acceleration</title>
                 </column_0>
                 <column_1>
                     <axes>
@@ -202,7 +202,7 @@
                         <curve_0>
                             <axes>
                                 <x_axis>
-                                    <field>twist/twist/angular/x</field>
+                                    <field>angular_velocity/x</field>
                                     <field_type>1</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -211,11 +211,11 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </x_axis>
                                 <y_axis>
-                                    <field>twist/twist/angular/x</field>
+                                    <field>angular_velocity/x</field>
                                     <field_type>0</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -224,8 +224,8 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </y_axis>
                             </axes>
                             <color>
@@ -253,7 +253,7 @@
                         <curve_1>
                             <axes>
                                 <x_axis>
-                                    <field></field>
+                                    <field>angular_velocity/y</field>
                                     <field_type>1</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -262,11 +262,11 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </x_axis>
                                 <y_axis>
-                                    <field>twist/twist/linear/y</field>
+                                    <field>angular_velocity/y</field>
                                     <field_type>0</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -275,8 +275,8 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </y_axis>
                             </axes>
                             <color>
@@ -304,7 +304,7 @@
                         <curve_2>
                             <axes>
                                 <x_axis>
-                                    <field></field>
+                                    <field>angular_velocity/z</field>
                                     <field_type>1</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -313,11 +313,11 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </x_axis>
                                 <y_axis>
-                                    <field>twist/twist/angular/z</field>
+                                    <field>angular_velocity/z</field>
                                     <field_type>0</field_type>
                                     <scale>
                                         <absolute_maximum>1000</absolute_maximum>
@@ -326,8 +326,8 @@
                                         <relative_minimum>-1000</relative_minimum>
                                         <type>0</type>
                                     </scale>
-                                    <topic>/odometry/filtered</topic>
-                                    <type>nav_msgs/Odometry</type>
+                                    <topic>/imu/data</topic>
+                                    <type>sensor_msgs/Imu</type>
                                 </y_axis>
                             </axes>
                             <color>
