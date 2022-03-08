@@ -9,5 +9,6 @@
     </include>
         <node name="waypoint_navigation" pkg="$(arg package)" type="waypoint_navigation"/>
 
-    <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" args="--multiplot-config $(arg package_path)/rqt/rqt_multiplot_ex2.2.xml --multiplot-run-all"/>
+    <node pkg="$(arg package)" type="distance_yaw_estimator" name="distance_yaw_estimator"/>
+    <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" args="--multiplot-config $(arg package_path)/rqt/rqt_multiplot_ex2.3.xml --multiplot-run-all"/>
 </launch>
