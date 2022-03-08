@@ -1,7 +1,6 @@
 #! /bin/bash
 
 [ -z "$1" ] && echo 'error' && exit 1
-[ -z "$2" ] && echo 'error' && exit 1
 
 filename="$1"
 
@@ -36,7 +35,7 @@ echo 'timestamp,x,y' > "$ms"
 rostopic echo /gazebo/model_states/pose["$2"]/position -p | cut -f -3 -d , >> "$ms" &
 model_states_pid=$!
 
-echo 'timestamp,x,y' > "$of"
+echo 'timestamp,x,y,z,r,p,y' > "$of"
 rostopic echo /odometry/filtered/pose/pose/position -p | cut -f -3 -d , >> "$of" &
 odometry_filtered_pid=$!
 
