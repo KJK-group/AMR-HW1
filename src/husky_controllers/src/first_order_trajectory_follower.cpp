@@ -38,7 +38,13 @@ auto odometry_filtered_cb(const nav_msgs::Odometry::ConstPtr& msg) -> void {
 
     // desired position
     auto desired_y = first_order_trajectory(curr_x);
-    auto diff_y = abs(curr_y - desired_y);
+    // error to desired y coordinated
+    auto diff_y = abs(abs(curr_y) - abs(desired_y));
+    ROS_WARN("curr_x: %.5f", curr_y);
+    ROS_WARN("curr_y: %.5f", curr_y);
+    ROS_WARN("desired_y: %.5f", desired_y);
+    ROS_WARN("diff_y: %.5f", diff_y);
+    ROS_WARN("slope: %.5f", trajectory_slope);
     // error message
     auto error_msg = husky_controllers::Error();
     error_msg.error = diff_y;
@@ -112,14 +118,14 @@ auto main(int argc, char** argv) -> int {
 
     // passing command line arguments
     // trajectory slope
-    if (argc > 1) trajectory_slope = stoi(argv[1]);
+    if (argc > 1) trajectory_slope = stof(argv[1]);
     // controller gains
     if (argc > 2) K_rho = stof(argv[2]);
     if (argc > 3) K_alpha = stof(argv[3]);
     if (argc > 4) K_beta = stof(argv[4]);
 
     // subscriber to odometry filtered data from the husky
-    sub_odom = nh.subscribe<nav_msgs::Odometry>("/husky_velocity_controller/odom", 10, odometry_filtered_cb);
+    sub_odom = nh.subscribe<nav_msgs::Odometry>("/odometry/filtered", 10, odometry_filtered_cb);
 
     auto loop_rate = ros::Rate(10);
     while(ros::ok()) {
