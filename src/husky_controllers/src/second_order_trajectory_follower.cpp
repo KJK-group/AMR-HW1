@@ -44,7 +44,8 @@ auto odometry_filtered_cb(const nav_msgs::Odometry::ConstPtr& msg) -> void {
 
     // desired position
     auto desired_y = second_order_trajectory(curr_x);
-    auto diff_y = abs(curr_y - desired_y);
+    // error to desired y coordinate
+    auto diff_y = abs(abs(curr_y) - abs(desired_y));
     // error message
     auto error_msg = husky_controllers::Error();
     error_msg.error = diff_y;
