@@ -57,7 +57,7 @@ auto model_states_cb(const gazebo_msgs::ModelStates::ConstPtr &msg) -> void
     auto delta_time = now - model_states_previous_time;
     //  Model states return 3 states from the world and the state of the husky robot is at index 2
     //  MOdel states is measured in world frame, as such velocity can be negative
-    auto delta_distance = (abs(msg->twist[2].linear.x) + abs(msg->twist[2].linear.y)) * delta_time.toNSec() / pow(10, 9);
+    auto delta_distance = sqrt(pow(msg->twist[2].linear.x, 2) + pow(msg->twist[2].linear.y, 2)) * delta_time.toNSec() / pow(10, 9);
     model_states_distance += delta_distance;
     model_states_previous_time = now;
 
